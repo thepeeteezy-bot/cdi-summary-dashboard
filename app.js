@@ -1,20 +1,36 @@
-/* global Chart, DASHBOARD_API_URL */
+/* global Chart, DASHBOARD_API_URL, AUTO_REFRESH_MS */
 'use strict';
 
 const CALLBACK_NAME = 'cdiDashboardCallback';
 const charts = {};
 
+let refreshTimer = null;
+let isLoading = false;
+
 document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('refreshButton').addEventListener('click', loadDashboard);
   loadDashboard();
+
+  const interval = Number(AUTO_REFRESH_MS);
+  if (Number.isFinite(interval) && interval >= 5000) {
+    refreshTimer = window.setInterval(function () {
+      if (!document.hidden && !isLoading) {
+        loadDashboard();
+      }
+    }, interval);
+  }
 });
 
 function loadDashboard() {
+  if (isLoading) return;
+  isLoading = true;
+
   hideNotice('errorNotice');
 
   if (!DASHBOARD_API_URL || DASHBOARD_API_URL.includes('PASTE_YOUR_APPS_SCRIPT')) {
     showNotice('setupNotice');
     setStatus('ยังไม่ได้ตั้งค่า API', false);
+    isLoading = false;
     return;
   }
 
@@ -33,12 +49,13 @@ function loadDashboard() {
       }
 
       renderDashboard(payload);
-      setStatus('เชื่อมต่อข้อมูลสำเร็จ', true);
+      setStatus('เชื่อมต่อสำเร็จ · อัปเดตอัตโนมัติทุก 10 วินาที', true);
     } catch (error) {
       showDashboardError(error);
     } finally {
       cleanupJsonp();
       setRefreshDisabled(false);
+      isLoading = false;
     }
   };
 
