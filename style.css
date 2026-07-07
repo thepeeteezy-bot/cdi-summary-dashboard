@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap');
+
+:root {
+  color-scheme: light;
+  --background: #f4f7fb;
+  --surface: #ffffff;
+  --surface-muted: #eef3f8;
+  --text: #17212b;
+  --text-muted: #637181;
+  --border: #dbe4ec;
+  --primary: #315c78;
+  --primary-dark: #22445a;
+  --success: #2f7d5d;
+  --warning-background: #fff8df;
+  --warning-border: #e5c75d;
+  --danger: #9f3f48;
+  --danger-background: #fff0f1;
+  --danger-border: #e8b9bd;
+  --shadow: 0 10px 28px rgba(31, 54, 74, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  font-family: "Noto Sans Thai", system-ui, sans-serif;
+  background: var(--background);
+  color: var(--text);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+button { font: inherit; }
+
+.container {
+  width: min(1180px, calc(100% - 32px));
+  margin-inline: auto;
+}
+
+.site-header {
+  padding: 54px 0 38px;
+  background:
+    radial-gradient(circle at top right, rgba(255,255,255,.18), transparent 32%),
+    linear-gradient(135deg, var(--primary-dark), var(--primary));
+  color: white;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0.82;
+}
+
+h1 {
+  margin: 0;
+  max-width: 860px;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  line-height: 1.25;
+}
+
+.subtitle {
+  margin: 12px 0 0;
+  max-width: 760px;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.7;
+}
+
+main.container {
+  padding-block: 28px 48px;
+}
+
+.notice {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  border: 1px solid;
+  border-radius: 12px;
+}
+
+.notice-warning {
+  background: var(--warning-background);
+  border-color: var(--warning-border);
+}
+
+.notice-error {
+  background: var(--danger-background);
+  border-color: var(--danger-border);
+  color: var(--danger);
+}
+
+.hidden { display: none !important; }
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: #a4afba;
+}
+
+.status-success { background: var(--success); }
+
+.button {
+  padding: 9px 15px;
+  border: 0;
+  border-radius: 9px;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.button:hover { background: var(--primary-dark); }
+
+.button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.card,
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.card { padding: 20px; }
+
+.card-alert { border-top: 4px solid var(--danger); }
+
+.card-label {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+}
+
+.card-value {
+  margin: 10px 0 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.card-note {
+  margin: 8px 0 0;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.panel {
+  padding: 20px;
+  min-width: 0;
+}
+
+.panel h2 {
+  margin: 0;
+  font-size: 1.08rem;
+}
+
+.panel p {
+  margin: 5px 0 0;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.chart-box {
+  position: relative;
+  height: 340px;
+  margin-top: 12px;
+}
+
+.chart-box-small { height: 310px; }
+
+.privacy-panel { margin-top: 18px; }
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding-block: 20px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+code {
+  padding: 2px 5px;
+  border-radius: 5px;
+  background: var(--surface-muted);
+}
+
+@media (max-width: 900px) {
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .charts-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .container { width: min(100% - 20px, 1180px); }
+  .site-header { padding: 38px 0 28px; }
+
+  .toolbar,
+  .footer-content {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .cards { grid-template-columns: 1fr; }
+  .chart-box { height: 300px; }
+  .panel { padding: 16px; }
+}

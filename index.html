@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Dashboard ข้อมูลสรุประบบคัดกรอง CDI">
+  <meta name="referrer" content="no-referrer">
+  <title>Dashboard การคัดกรอง CDI</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script defer src="config.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <p class="eyebrow">ข้อมูลสรุปที่ไม่ระบุตัวบุคคล</p>
+      <h1>Dashboard การคัดกรองภาวะซึมเศร้าในเด็ก</h1>
+      <p class="subtitle">
+        แสดงข้อมูลภาพรวมจากระบบ CDI เพื่อใช้ติดตามและวางแผนระดับสถานศึกษา
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="setupNotice" class="notice notice-warning hidden">
+      <strong>ยังไม่ได้ตั้งค่า API</strong>
+      <span>เปิดไฟล์ <code>config.js</code> แล้ววาง Apps Script Web App URL</span>
+    </section>
+
+    <section id="errorNotice" class="notice notice-error hidden">
+      <strong>โหลดข้อมูลไม่สำเร็จ</strong>
+      <span id="errorMessage">กรุณาตรวจสอบ URL และการ Deploy ของ Apps Script</span>
+    </section>
+
+    <section class="toolbar">
+      <div>
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">กำลังเชื่อมต่อข้อมูล...</span>
+      </div>
+      <button id="refreshButton" type="button" class="button">อัปเดตข้อมูล</button>
+    </section>
+
+    <section class="cards">
+      <article class="card">
+        <p class="card-label">ผู้รับการคัดกรองทั้งหมด</p>
+        <p class="card-value" id="totalCount">—</p>
+        <p class="card-note">รายการ</p>
+      </article>
+
+      <article class="card">
+        <p class="card-label">ไม่ถึงเกณฑ์คัดกรอง</p>
+        <p class="card-value" id="normalCount">—</p>
+        <p class="card-note">รายการ</p>
+      </article>
+
+      <article class="card">
+        <p class="card-label">ติดตามหรือส่งต่อ</p>
+        <p class="card-value" id="followUpCount">—</p>
+        <p class="card-note">รายการ</p>
+      </article>
+
+      <article class="card card-alert">
+        <p class="card-label">เร่งด่วน</p>
+        <p class="card-value" id="urgentCount">—</p>
+        <p class="card-note">รายการ</p>
+      </article>
+    </section>
+
+    <section class="charts-grid">
+      <article class="panel">
+        <h2>สัดส่วนผลการคัดกรอง</h2>
+        <p>ค่าที่ต่ำกว่าเกณฑ์ความเป็นส่วนตัวจะไม่แสดงเป็นตัวเลขจริง</p>
+        <div class="chart-box chart-box-small">
+          <canvas id="resultChart"></canvas>
+        </div>
+      </article>
+
+      <article class="panel">
+        <h2>ผลจำแนกตามโรงเรียน</h2>
+        <p>เปรียบเทียบผลคัดกรองในระดับสถานศึกษา</p>
+        <div class="chart-box">
+          <canvas id="schoolChart"></canvas>
+        </div>
+      </article>
+
+      <article class="panel">
+        <h2>ผลจำแนกตามระดับชั้น</h2>
+        <p>ใช้วางแผนการเฝ้าระวังและกิจกรรมส่งเสริมสุขภาวะ</p>
+        <div class="chart-box">
+          <canvas id="gradeChart"></canvas>
+        </div>
+      </article>
+
+      <article class="panel">
+        <h2>จำนวนการคัดกรองรายเดือน</h2>
+        <p>แสดงเฉพาะจำนวนการทำแบบคัดกรอง</p>
+        <div class="chart-box">
+          <canvas id="monthChart"></canvas>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel privacy-panel">
+      <h2>หลักการคุ้มครองข้อมูล</h2>
+      <p id="privacyNote"></p>
+      <p id="suppressionNote"></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <span>ข้อมูลปรับปรุงล่าสุด: <strong id="lastUpdated">—</strong></span>
+      <span>ผลเป็นข้อมูลคัดกรองเบื้องต้น ไม่ใช่การวินิจฉัยโรค</span>
+    </div>
+  </footer>
+</body>
+</html>
